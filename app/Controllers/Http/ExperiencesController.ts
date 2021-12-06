@@ -11,7 +11,7 @@ export default class ExperiencesController {
 
   public async create({}: HttpContextContract) {}
 
-  public async store({request, response}: HttpContextContract) {
+  public async store({response}: HttpContextContract) {
     //const skillId = request.input('skillId')
    // const candidateId = request.input('candidateId')
 

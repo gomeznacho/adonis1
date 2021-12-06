@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import User from './User'
+import User from 'App/Models/User'
 import Experience from './Experience'
 
 export default class Candidate extends BaseModel {
@@ -8,13 +8,13 @@ export default class Candidate extends BaseModel {
   public id: number
 
   @column()
-  public fullName: string
+  public name: string
 
   @column()
   public email: string
 
   @column()
-  public telephone: string
+  public phoneNumber: string
 
   @column()
   public birthDate: DateTime
@@ -40,18 +40,20 @@ export default class Candidate extends BaseModel {
   @column()
   public userId: number
 
+  @belongsTo (() => User
+    //{localKey: 'userId'}
+   )
+   public user: BelongsTo<typeof User>
+ 
+   @hasMany(() => Experience)
+   public experiences: HasMany<typeof Experience>
+ 
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo (() => User,
-  {localKey: 'userId'}
-  )
-  public user: BelongsTo<typeof User>
-
-  @hasMany(() => Experience)
-  public Experience: HasMany<typeof Experience>
-
+ 
 }
