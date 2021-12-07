@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database';
-import Experience from 'App/Models/experience';
+import Experience from 'App/Models/Experience';
 
 export default class ExperiencesController {
   public async index({response}: HttpContextContract) {

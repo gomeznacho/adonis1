@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, } from '@ioc:Adonis/Lucid/Orm'
-import Skill from './skill'
+import Skill from './Skill'
 import Candidate from './Candidate'
 
 export default class Experience extends BaseModel {
