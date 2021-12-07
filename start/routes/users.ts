@@ -15,7 +15,7 @@ Route.post('/login', async ({ auth, request, response }) => {
     }
 }).prefix('/user')
 
-Route.post('/logout', async ({ auth, response }) => {
+Route.post('/logout', async ({ auth}) => {
  await auth.use('api').logout()
   }).prefix('/user')
 

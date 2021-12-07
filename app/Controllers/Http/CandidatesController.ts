@@ -4,7 +4,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import Candidate from 'App/Models/Candidate'
 
 export default class CandidatesController {
-  public async index({request, response}: HttpContextContract) {
+  public async index({ response}: HttpContextContract) {
     //const city = ''
 
     const candidates = await Candidate.query()
