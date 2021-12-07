@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database';
 import User from 'App/Models/User'
+import {schema, rules} from '@ioc:Adonis/Core/Validator'
 
 export default class UsersController {
   public async index({ response }: HttpContextContract) {
@@ -9,20 +10,36 @@ export default class UsersController {
     return response.json({users})
   }
 
-  public async create({}: HttpContextContract) {}
+  public async register({ request, response }: HttpContextContract) {
+    const userSchema = schema.create({
+     name: schema.string({ trim: true }, [
+        rules.unique({ table: 'users', column: 'name' }),
+        rules.regex(/^[a-zA-Z0-9-_]+$/),
+      ]),
 
-  public async store({ request, response }: HttpContextContract) {
-    const name = request.input('name');
-    const email = request.input('email');
-    const password = request.input('password');
+      email: schema.string({ trim: true }, [rules.unique({ table: 'users', column: 'email' })]),
+      password: schema.string({})
+    });
 
-    //const user = await User.create({ name, email, password } );
- 
-    const user = await Database.insertQuery<User>().table('users').insert({name, email, password});
-   
+    const data = await request.validate({ schema: userSchema })
+    const user = await User.create(data );
     return response.json({user})
   }
 
+
+ /* public async store({ request, response }: HttpContextContract) {
+    const name = request.input('name');
+    const email = request.input('email');
+    const password = request.input('password');
+    //const candidates = request.input('candidates')
+
+    const user = await User.create({ name, email, password } );
+ 
+    //const user = await Database.insertQuery<User>().table('users').insert({name, email, password, candidates});
+   
+    return response.json({user})
+  }
+*/
   public async show({response, params}: HttpContextContract) {
 
     //const user = await User.query().where('id', params.id).firstOrFail();

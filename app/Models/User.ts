@@ -25,10 +25,11 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => Candidate, 
-  { foreignKey: 'userId' }
+
+  @hasMany(() => Candidate 
+  //{ foreignKey: 'userId' }
     )
-  public assignedCandidates: HasMany<typeof Candidate>
+  public candidates: HasMany<typeof Candidate>
 
   @beforeSave()
   public static async hashPassword(user:User){
